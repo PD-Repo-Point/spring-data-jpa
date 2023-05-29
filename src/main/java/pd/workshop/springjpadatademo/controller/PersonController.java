@@ -19,7 +19,7 @@ public class PersonController {
     }
     @GetMapping
     private Page<Person> findAllPerson(@RequestParam int page, @RequestParam int size){
-
+        // Pages-->50(0-49)   100/2
         Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
         PageRequest pageRequest = PageRequest.of(page, size, sort);
 

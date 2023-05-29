@@ -50,6 +50,13 @@ public class Person {
     )
     private Integer age;
 
+    @OneToOne(
+            mappedBy = "person",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private PersonIdCard personIdCard;
+
     public Person(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
