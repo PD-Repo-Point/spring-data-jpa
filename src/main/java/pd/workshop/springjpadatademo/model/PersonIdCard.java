@@ -13,7 +13,9 @@ import javax.persistence.*;
 @Table(
         name = "person_id_card",
         uniqueConstraints = {
-                @UniqueConstraint(name = "person_id_card_unique", columnNames = "card_number")
+                @UniqueConstraint(
+                        name = "person_id_card_unique",
+                        columnNames = "card_number")
         }
 )
 public class PersonIdCard {
@@ -34,9 +36,10 @@ public class PersonIdCard {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "id",
+            name = "person_id",
+            referencedColumnName = "id",
             foreignKey = @ForeignKey(
-                    name="person_id_fk"
+                    name = "person_id_fk"
             )
     )
     private Person person;

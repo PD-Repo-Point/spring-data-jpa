@@ -38,7 +38,7 @@ public class SpringJpaDataDemoApplication {
 				"akanshapatel@gmail.com",
 				18
 		);
-		p1.setPersonIdCard(new PersonIdCard("123456"));
+		p1.setPersonIdCard(new PersonIdCard("12234",p1));
 
 		Person p2 = new Person(
 				"Ananya",
@@ -46,7 +46,7 @@ public class SpringJpaDataDemoApplication {
 				"anakum@gmail.com",
 				25
 		);
-		p2.setPersonIdCard(new PersonIdCard("1266656"));
+		p2.setPersonIdCard(new PersonIdCard("12834",p2));
 
 		Person p3 = new Person(
 				"Akash",
@@ -54,7 +54,7 @@ public class SpringJpaDataDemoApplication {
 				"akakum@gmail.com",
 				24
 		);
-		p3.setPersonIdCard(new PersonIdCard("123488856"));
+		p3.setPersonIdCard(new PersonIdCard("12238",p3));
 
 
 		List<Person> people = new ArrayList<>();
@@ -64,84 +64,7 @@ public class SpringJpaDataDemoApplication {
 
 		personRepository.saveAll(people);
 
-		personRepository.findStudentByEmail("akakum@gmail.com")
-				.ifPresentOrElse(System.out::println,
-						() ->System.out.println("The email ID is not present..."));
-
-		personRepository.selectPersonWhereFirstNameAndAgeGreaterOrEqual(
-				"Ananya",
-				10).forEach(System.out::println);
-
-		personRepository.selectPersonWhereFirstNameOrAgeGreaterOrEqual(
-				"Ananya",
-				10).forEach(System.out::println);
-
-
-		// --- Pagination
-		/*100000
-				page - 1 -- size - 20
-				1 - 20 20 - 40 40 - 60 (Navigate)*/
-		/*List<Person> people = IntStream.rangeClosed(1,100)
-				.mapToObj( i-> new Person(
-						faker.name().firstName(),
-						faker.name().lastName(),
-						faker.internet().emailAddress(),
-						faker.number().numberBetween(18,55)
-						)).toList();*/
-
-
-
-		//personRepository.saveAll(people);
-
-
-		// END -- Pagination
-
-		/*Person p1 = new Person(
-				"Akansha",
-				"Patel",
-				"akanshapatel@gmail.com",
-				18
-		);
-
-		Person p2 = new Person(
-				"Ananya",
-				"Kumari",
-				"anakum@gmail.com",
-				25
-		);
-
-		Person p3 = new Person(
-				"Akash",
-				"Kumar",
-				"akakum@gmail.com",
-				24
-		);
-
-		personRepository.saveAll(List.of(p1, p2, p3));
-
-		System.out.println("Number of person : "+personRepository.count());
-
-		personRepository
-				.findById(4l)
-				.ifPresentOrElse(
-						System.out::println,
-						() -> System.out.println("ID is not found"));
-
-		personRepository.findAll().stream().forEach(System.out::println); */
-
-
-
 
 
 	}
-
-	/*@Bean
-	CommandLineRunner  commandLineRunner = new CommandLineRunner() ->{
-		return args ->{
-
-		};
-	};*/
-
-
-
 }
