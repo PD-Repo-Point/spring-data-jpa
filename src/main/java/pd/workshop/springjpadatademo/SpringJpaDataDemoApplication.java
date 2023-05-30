@@ -5,11 +5,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import pd.workshop.springjpadatademo.model.Book;
 import pd.workshop.springjpadatademo.model.Person;
 import pd.workshop.springjpadatademo.model.PersonIdCard;
 import pd.workshop.springjpadatademo.repository.PersonIdCardRepository;
 import pd.workshop.springjpadatademo.repository.PersonRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -39,6 +41,10 @@ public class SpringJpaDataDemoApplication {
 				18
 		);
 		p1.setPersonIdCard(new PersonIdCard("12234",p1));
+		p1.setBooks( List.of(new
+				Book("Clean Code",
+				LocalDateTime.now().minusDays(4),
+				p1)));
 
 		Person p2 = new Person(
 				"Ananya",
@@ -47,6 +53,11 @@ public class SpringJpaDataDemoApplication {
 				25
 		);
 		p2.setPersonIdCard(new PersonIdCard("12834",p2));
+		p2.addBook(new Book("The Clean Coder", LocalDateTime.now())); // With the help of the method
+		p2.addBook(new Book("The Clean Coder", LocalDateTime.now().plusDays(4)));
+				//List.of(
+				//new Book("The Clean Coder", LocalDateTime.now()),
+				//new Book("The Design Pattern", LocalDateTime.now())));
 
 		Person p3 = new Person(
 				"Akash",
@@ -59,8 +70,6 @@ public class SpringJpaDataDemoApplication {
 
 		List<Person> people = new ArrayList<>();
 		people = List.of(p1, p2, p3);
-
-		//personIdCardRepository.save(people);
 
 		personRepository.saveAll(people);
 

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Entity(O) ---> class ------- Table(R) ---> database table ----> Mapping --> Hibernate
 @Data
@@ -57,10 +59,33 @@ public class Person {
     )
     private PersonIdCard personIdCard;
 
+    @OneToMany(
+            mappedBy = "person",
+            orphanRemoval = true,
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    private List<Book> books = new ArrayList<>();
+
+
     public Person(String firstName, String lastName, String email, Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+    }
+
+    public void addBook(Book book) {
+        if(!this.books.contains(book)){
+            this.books.add(book);
+            book.setPerson(this);
+        }
+    }
+
+    public void removeBook(Book book){
+        if(this.books.contains(book)){
+            this.books.remove(book);
+            book.setPerson(null);
+        }
     }
 }
