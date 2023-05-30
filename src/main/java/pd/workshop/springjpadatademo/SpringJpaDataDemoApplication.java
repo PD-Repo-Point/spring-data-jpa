@@ -5,9 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pd.workshop.springjpadatademo.model.Book;
-import pd.workshop.springjpadatademo.model.Person;
-import pd.workshop.springjpadatademo.model.PersonIdCard;
+import pd.workshop.springjpadatademo.model.*;
 import pd.workshop.springjpadatademo.repository.PersonIdCardRepository;
 import pd.workshop.springjpadatademo.repository.PersonRepository;
 
@@ -40,11 +38,20 @@ public class SpringJpaDataDemoApplication {
 				"akanshapatel@gmail.com",
 				18
 		);
+		// OneToOne
 		p1.setPersonIdCard(new PersonIdCard("12234",p1));
+		// OneToMany
 		p1.setBooks( List.of(new
 				Book("Clean Code",
 				LocalDateTime.now().minusDays(4),
 				p1)));
+		// Embeddable class - Composite Key
+		p1.addEnrollment(new Enrollment(
+				new EnrollmentId(1L, 1L),
+				p1,
+				new Course("Computer Science", "IT"),
+				LocalDateTime.now()
+		));
 
 		Person p2 = new Person(
 				"Ananya",

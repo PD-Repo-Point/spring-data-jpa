@@ -67,13 +67,15 @@ public class Person {
     )
     private List<Book> books = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "person",
+            orphanRemoval = true,
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    private List<Enrollment> enrollments = new ArrayList<>();
 
-    public Person(String firstName, String lastName, String email, Integer age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.age = age;
-    }
+
 
     public void addBook(Book book) {
         if(!this.books.contains(book)){
@@ -81,11 +83,30 @@ public class Person {
             book.setPerson(this);
         }
     }
-
     public void removeBook(Book book){
         if(this.books.contains(book)){
             this.books.remove(book);
             book.setPerson(null);
         }
+    }
+
+    public void addEnrollment(Enrollment enrollment) {
+        if(!this.enrollments.contains(enrollment)){
+            this.enrollments.add(enrollment);
+            enrollment.setPerson(this);
+        }
+    }
+    public void removeEnrollment(Enrollment enrollment){
+        if(this.enrollments.contains(enrollment)){
+            this.enrollments.remove(enrollment);
+            enrollment.setPerson(null);
+        }
+    }
+
+    public Person(String firstName, String lastName, String email, Integer age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
     }
 }
